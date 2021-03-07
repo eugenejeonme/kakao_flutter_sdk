@@ -6,7 +6,7 @@ import 'package:kakao_flutter_sdk/story.dart';
 const MethodChannel _channel = MethodChannel("kakao_flutter_sdk");
 
 /// Launches a given url with platform-specific default browser tab.
-Future<String> launchBrowserTab(Uri uri, {String redirectUri}) {
+Future<String?> launchBrowserTab(Uri uri, {String? redirectUri}) {
   if (uri.scheme != 'http' && uri.scheme != 'https') {
     throw KakaoClientException(
       'Default browsers only supports URL of http or https scheme.',
@@ -18,7 +18,7 @@ Future<String> launchBrowserTab(Uri uri, {String redirectUri}) {
 }
 
 /// Determines whether KakaoTalk is installed on this device.
-Future<bool> isKakaoTalkInstalled() async {
+Future<bool?> isKakaoTalkInstalled() async {
   return _channel.invokeMethod("isKakaoTalkInstalled");
 }
 
@@ -30,7 +30,7 @@ class Util {
   static int fromDateTime(DateTime dateTime) =>
       dateTime.millisecondsSinceEpoch ~/ 1000;
 
-  static String dateTimeWithoutMillis(DateTime dateTime) => dateTime == null
+  static String? dateTimeWithoutMillis(DateTime? dateTime) => dateTime == null
       ? null
       : "${dateTime.toIso8601String().substring(0, dateTime.toIso8601String().length - 5)}Z";
 }

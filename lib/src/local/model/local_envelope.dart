@@ -5,11 +5,11 @@ part 'local_envelope.g.dart';
 
 /// Response envelope for Local API
 @JsonSerializable()
-class LocalEnvelope<T, U> {
+class LocalEnvelope<T extends Object, U extends Object> {
   @GenericsConverter()
   T meta;
   @GenericsConverter()
-  List<U> documents;
+  List<U>? documents;
 
   LocalEnvelope(this.meta, this.documents);
 

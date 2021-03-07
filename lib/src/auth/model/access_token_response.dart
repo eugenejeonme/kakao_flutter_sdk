@@ -16,7 +16,7 @@ class AccessTokenResponse {
   int expiresIn;
 
   // token used for getting new access token via [AuthApi]
-  String refreshToken;
+  String? refreshToken;
 
   // remaining time for the refresh token to expire in seconds
   int refreshTokenExpiresIn;
@@ -24,7 +24,7 @@ class AccessTokenResponse {
   // list of scopes this user agreed to.
   // ex. "account_email story_publish"
   @JsonKey(name: "scope")
-  String scopes;
+  String? scopes;
 
   /// <nodoc>
   String tokenType;

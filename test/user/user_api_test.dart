@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_test/flutter_test.dart' as prefix0;
 import 'package:kakao_flutter_sdk/src/user/model/account.dart';
 import 'package:kakao_flutter_sdk/src/user/model/user.dart';
 import 'package:kakao_flutter_sdk/src/user/user_api.dart';
@@ -12,9 +11,9 @@ import '../helper.dart';
 import '../mock_adapter.dart';
 
 void main() {
-  Dio _dio;
-  MockAdapter _adapter;
-  UserApi _api;
+  late Dio _dio;
+  late MockAdapter _adapter;
+  late UserApi _api;
 
   setUp(() {
     _dio = Dio();
@@ -53,7 +52,7 @@ void main() {
         profile.thumbnailImageUrl.toString());
     expect(profileMap["profile_image_url"], profile.profileImageUrl.toString());
 
-    expect(true, user.toJson() != null);
+    expect(true, user.toJson());
   });
 
   test("/v1/user/access_token_info 200", () async {

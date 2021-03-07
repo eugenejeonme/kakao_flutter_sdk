@@ -8,7 +8,7 @@ import 'package:kakao_flutter_sdk/src/search/model/vclip.dart';
 import 'package:kakao_flutter_sdk/src/search/model/web_result.dart';
 
 /// <nodoc>
-class GenericsConverter<T> implements JsonConverter<T, Object> {
+class GenericsConverter<T extends Object> implements JsonConverter<T, Object> {
   const GenericsConverter();
   @override
   T fromJson(Object json) {
@@ -33,7 +33,8 @@ class GenericsConverter<T> implements JsonConverter<T, Object> {
     if (T == Cafe) {
       return Cafe.fromJson(json as Map<String, dynamic>) as T;
     }
-    return null;
+    // TODO: throw exception
+    throw Exception('GenericsConverter Error');
   }
 
   @override

@@ -46,17 +46,17 @@ class _UserState extends State<UserScreen> {
                                     : AssetImage("assets/images/cat2.png"))),
                     _user != null ? Text(_user.id.toString()) : Container(),
                     TokenInfoBox(_tokenInfo),
-                    RaisedButton(
+                    ElevatedButton(
                       child: Text("Logout"),
                       onPressed: () => bloc.dispatch(UserLogOut()),
-                      color: Colors.orange,
-                      textColor: Colors.white,
+                      // color: Colors.orange,
+                      // textColor: Colors.white,
                     ),
-                    RaisedButton(
+                    ElevatedButton(
                       child: Text("Unlink"),
                       onPressed: () => bloc.dispatch(UserUnlink()),
-                      color: Colors.red,
-                      textColor: Colors.white,
+                      // color: Colors.red,
+                      // textColor: Colors.white,
                     ),
                   ],
                 ));

@@ -10,7 +10,7 @@ const MethodChannel _channel = MethodChannel("kakao_flutter_sdk");
 ///
 /// Corresponds to Authorization Endpoint of [OAuth 2.0 spec](https://tools.ietf.org/html/rfc6749).
 class AuthCodeClient {
-  AuthCodeClient({AuthApi authApi, Platform platform})
+  AuthCodeClient({AuthApi? authApi, Platform? platform})
       : _kauthApi = authApi ?? AuthApi.instance,
         _platform = platform ?? LocalPlatform();
 
@@ -21,7 +21,7 @@ class AuthCodeClient {
 
   /// Requests authorization code via `Chrome Custom Tabs` (on Android) and `ASWebAuthenticationSession` (on iOS).
   Future<String> request(
-      {String clientId, String redirectUri, List<String> scopes}) async {
+      {String? clientId, String? redirectUri, List<String>? scopes}) async {
     final finalRedirectUri = redirectUri ?? "kakao${_platformKey()}://oauth";
 
     final params = {
@@ -43,16 +43,21 @@ class AuthCodeClient {
   /// This will only work on devices where KakaoTalk is installed.
   /// You MUST check if KakaoTalk is installed before calling this method with [isKakaoTalkInstalled].
   Future<String> requestWithTalk(
-      {String clientId, String redirectUri, List<String> scopes}) async {
-    return _parseCode(await _openKakaoTalk(clientId ?? _platformKey(),
-        redirectUri ?? "kakao${_platformKey()}://oauth"));
+      {String? clientId, String? redirectUri, List<String>? scopes}) async {
+    final url = await _openKakaoTalk(clientId ?? _platformKey(),
+        redirectUri ?? "kakao${_platformKey()}://oauth");
+    // TODO: Throw Error
+    if (url == null) {
+      throw Error.safeToString('_openKakaoTalk Error');
+    }
+    return _parseCode(url);
   }
 
   /// Requests authorization code with current access token.
   ///
   /// User should be logged in in order to call this method.
-  Future<String> requestWithAgt(List<String> scopes,
-      {String clientId, String redirectUri}) async {
+  Future<String> requestWithAgt(List<String>? scopes,
+      {String? clientId, String? redirectUri}) async {
     final agt = await _kauthApi.agt();
     final finalRedirectUri = redirectUri ?? "kakao${_platformKey()}://oauth";
     final params = {
@@ -74,19 +79,23 @@ class AuthCodeClient {
     _channel.invokeMethod("retrieveAuthCode");
   }
 
-  String _parseCode(String redirectedUri) {
+  String _parseCode(String? redirectedUri) {
+    // TODO: throw exception
+    if (redirectedUri == null) {
+      throw KakaoAuthException(AuthErrorCause.UNKNOWN, 'No redirect URI.');
+    }
     final queryParams = Uri.parse(redirectedUri).queryParameters;
     final code = queryParams["code"];
     if (code != null) return code;
     throw KakaoAuthException.fromJson(queryParams);
   }
 
-  Future<String> _openKakaoTalk(String clientId, String redirectUri) async {
+  Future<String?> _openKakaoTalk(String? clientId, String redirectUri) async {
     return _channel.invokeMethod("authorizeWithTalk",
         {"client_id": clientId, "redirect_uri": redirectUri});
   }
 
-  String _platformKey() {
+  String? _platformKey() {
     if (kIsWeb) {
       return KakaoContext.javascriptClientId;
     }
@@ -96,9 +105,9 @@ class AuthCodeClient {
     return KakaoContext.javascriptClientId;
   }
 
-  // String _platformRedirectUri() {
-  //   if (kIsWeb) {
-  //     return "${html.win}"
-  //   }
-  // }
+// String _platformRedirectUri() {
+//   if (kIsWeb) {
+//     return "${html.win}"
+//   }
+// }
 }

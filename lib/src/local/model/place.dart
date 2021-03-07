@@ -29,7 +29,7 @@ class Place extends Coord {
 
   /// distance from the center coordinate. Only exists when x and y parameters are provided to the API.
   @JsonKey(fromJson: stringToInt)
-  int distance;
+  int? distance;
 
   Place(
       this.id,
@@ -42,8 +42,8 @@ class Place extends Coord {
       this.roadAddressName,
       this.placeUrl,
       this.distance,
-      double x,
-      double y)
+      double? x,
+      double? y)
       : super(x, y);
 
   /// <nodoc>

@@ -11,9 +11,9 @@ import '../helper.dart';
 import '../mock_adapter.dart';
 
 void main() {
-  MockAdapter _adapter;
-  LocalApi _api;
-  Dio _dio;
+  late MockAdapter _adapter;
+  late LocalApi _api;
+  late Dio _dio;
 
   setUp(() {
     _dio = Dio();
@@ -38,7 +38,7 @@ void main() {
       expect(meta.pageableCount, expectedMeta["pageable_count"]);
       expect(meta.isEnd, expectedMeta["is_end"]);
 
-      addresses.asMap().forEach((index, address) {
+      addresses?.asMap().forEach((index, address) {
         final curr = expected[index];
         expect(address.addressName, curr["address_name"]);
         expect(address.x, double.tryParse(curr["x"]));
@@ -91,7 +91,7 @@ void main() {
 
       final documents = response.documents;
       final expectedDocuments = map["documents"];
-      documents.asMap().forEach((index, region) {
+      documents?.asMap().forEach((index, region) {
         final expected = expectedDocuments[index];
         expect(region.regionType, expected["region_type"]);
         expect(region.addressName, expected["address_name"]);
@@ -111,7 +111,7 @@ void main() {
       _adapter.setResponseString(body, 200);
 
       final response = await _api.coord2Address(1.2, 3.4);
-      response.documents.asMap().forEach((index, address) {
+      response.documents?.asMap().forEach((index, address) {
         final expected = map["documents"][index];
         expect(address.addressName, expected["address_name"]);
         expect(address.addressType, expected["address_type"]);
@@ -158,7 +158,7 @@ void main() {
       _adapter.setResponseString(body, 200);
       final response = await _api.transformCoord(1.2, 3.4, CoordType.WGS84);
 
-      response.documents.asMap().forEach((index, coord) {
+      response.documents?.asMap().forEach((index, coord) {
         final expected = map["documents"][index];
         expect(coord.x, expected["x"]);
         expect(coord.y, expected["y"]);
@@ -184,7 +184,7 @@ void main() {
       expect(regionInfo.keyword, expectedRegionInfo["keyword"]);
       expect(regionInfo.selectedRegion, expectedRegionInfo["selected_region"]);
 
-      response.documents.asMap().forEach((index, place) {
+      response.documents?.asMap().forEach((index, place) {
         final expected = map["documents"][index];
         expect(place.id, expected["id"]);
         expect(place.placeName, expected["place_name"]);

@@ -7,7 +7,7 @@ import 'package:kakao_flutter_sdk/src/local/model/region.dart';
 import 'package:kakao_flutter_sdk/src/local/model/total_address.dart';
 import 'package:kakao_flutter_sdk/src/search/model/search_meta.dart';
 
-class GenericsConverter<T> implements JsonConverter<T, Object> {
+class GenericsConverter<T extends Object> implements JsonConverter<T, Object> {
   const GenericsConverter();
   @override
   T fromJson(Object json) {
@@ -32,7 +32,8 @@ class GenericsConverter<T> implements JsonConverter<T, Object> {
     if (T == Region) {
       return Region.fromJson(json as Map<String, dynamic>) as T;
     }
-    return null;
+    // TODO: throw exception
+    throw Exception('GenericsConverter Error');
   }
 
   @override

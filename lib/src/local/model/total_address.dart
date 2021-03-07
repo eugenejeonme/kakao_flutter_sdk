@@ -14,7 +14,7 @@ class TotalAddress extends Coord {
   final Address address;
   final RoadAddress roadAddress;
 
-  TotalAddress(this.addressName, this.addressType, double x, double y,
+  TotalAddress(this.addressName, this.addressType, double? x, double? y,
       this.address, this.roadAddress)
       : super(x, y);
 

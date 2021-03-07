@@ -12,7 +12,7 @@ import 'package:kakao_flutter_sdk/src/auth/auth_api.dart';
 ///
 class AccessTokenInterceptor extends Interceptor {
   AccessTokenInterceptor(this._dio, this._kauthApi,
-      {AccessTokenStore tokenStore})
+      {AccessTokenStore? tokenStore})
       : this._tokenStore = tokenStore ?? AccessTokenStore.instance;
 
   Dio _dio;
@@ -35,20 +35,57 @@ class AccessTokenInterceptor extends Interceptor {
     }
     try {
       _dio.interceptors.requestLock.lock();
-      RequestOptions options = err.response.request;
+      RequestOptions? options = err.response?.request;
+      if (options == null) {
+        throw Error.safeToString('Not found response');
+      }
       final token = await _tokenStore.fromStore();
-      if (err.request.headers["Authorization"] !=
+      if (err.request?.headers["Authorization"] !=
           "Bearer ${token.accessToken}") {
         // tokens were refreshed by another API request.
         print(
             "just retry ${options.path} since access token was already refreshed by another request.");
-        return _dio.request(options.path, options: options);
+        // TODO: RequestOptions as Options
+        return _dio.request(options.path,
+            options: Options(
+              method: options.method,
+              sendTimeout: options.sendTimeout,
+              receiveTimeout: options.receiveTimeout,
+              extra: options.extra,
+              headers: options.headers,
+              responseType: options.responseType,
+              contentType: options.contentType,
+              validateStatus: options.validateStatus,
+              receiveDataWhenStatusError: options.receiveDataWhenStatusError,
+              followRedirects: options.followRedirects,
+              maxRedirects: options.maxRedirects,
+              requestEncoder: options.requestEncoder,
+              responseDecoder: options.responseDecoder,
+              listFormat: options.listFormat,
+            ));
       }
       final tokenResponse =
           await _kauthApi.refreshAccessToken(token.refreshToken);
       await _tokenStore.toStore(tokenResponse);
       print("retry ${options.path} after refreshing access token.");
-      return _dio.request(options.path, options: options);
+      // TODO: RequestOptions as Options
+      return _dio.request(options.path,
+          options: Options(
+            method: options.method,
+            sendTimeout: options.sendTimeout,
+            receiveTimeout: options.receiveTimeout,
+            extra: options.extra,
+            headers: options.headers,
+            responseType: options.responseType,
+            contentType: options.contentType,
+            validateStatus: options.validateStatus,
+            receiveDataWhenStatusError: options.receiveDataWhenStatusError,
+            followRedirects: options.followRedirects,
+            maxRedirects: options.maxRedirects,
+            requestEncoder: options.requestEncoder,
+            responseDecoder: options.responseDecoder,
+            listFormat: options.listFormat,
+          ));
     } catch (e) {
       if (e is KakaoAuthException ||
           e is KakaoApiException && e.code == ApiErrorCause.INVALID_TOKEN) {
@@ -63,7 +100,7 @@ class AccessTokenInterceptor extends Interceptor {
 
   /// This can be overridden
   bool isRetryable(DioError err) =>
-      err.request.baseUrl == "https://${KakaoContext.hosts.kapi}" &&
+      err.request?.baseUrl == "https://${KakaoContext.hosts.kapi}" &&
       err.response != null &&
-      err.response.statusCode == 401;
+      err.response?.statusCode == 401;
 }

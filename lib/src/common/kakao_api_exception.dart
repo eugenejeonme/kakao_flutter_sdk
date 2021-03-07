@@ -12,16 +12,16 @@ class KakaoApiException extends KakaoException {
       : super(msg);
 
   @JsonKey(unknownEnumValue: ApiErrorCause.UNKNOWN)
-  final ApiErrorCause code;
+  final ApiErrorCause? code;
   final String msg;
   final String apiType;
 
   /// List of scopes required to call the API that threw this exception.
   /// Use this with [AuthCodeClient.requestWithAgt] to let users agree to providing relevant information.
-  final List<String> requiredScopes;
+  final List<String>? requiredScopes;
 
   // List of scopes this user already agreed to.
-  final List<String> allowedScopes;
+  final List<String>? allowedScopes;
 
   /// <nodoc>
   factory KakaoApiException.fromJson(Map<String, dynamic> json) =>

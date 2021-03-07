@@ -38,7 +38,7 @@ class PostStoryState extends Equatable {
 
   factory PostStoryState.init() => PostStoryState(
       content: "",
-      images: List(),
+      images: [],
       permission: StoryPermission.PUBLIC,
       enableShare: true,
       androidExecParams: "",

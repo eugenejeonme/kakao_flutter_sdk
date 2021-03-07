@@ -6,7 +6,7 @@ part 'search_envelope.g.dart';
 
 /// Response envelope for Search API
 @JsonSerializable()
-class SearchEnvelope<T> {
+class SearchEnvelope<T extends Object> {
   SearchMeta meta;
   @GenericsConverter()
   List<T> documents;

@@ -10,9 +10,9 @@ import '../helper.dart';
 import '../mock_adapter.dart';
 
 void main() {
-  Dio _dio;
-  MockAdapter _adapter;
-  AuthApi _authApi;
+  late Dio _dio;
+  late MockAdapter _adapter;
+  late AuthApi _authApi;
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -76,7 +76,7 @@ void main() {
       fail("Should not reach here");
     } on KakaoAuthException catch (e) {
       expect(e.error, AuthErrorCause.MISCONFIGURED);
-      expect(true, e.toJson() != null);
+      expect(true, e.toJson());
     } catch (e) {
       expect(e, isInstanceOf<KakaoAuthException>());
     }

@@ -9,9 +9,9 @@ import '../helper.dart';
 import '../mock_adapter.dart';
 
 void main() {
-  MockAdapter _adapter;
-  PushApi _api;
-  Dio _dio;
+  late MockAdapter _adapter;
+  late PushApi _api;
+  late Dio _dio;
 
   setUp(() {
     _dio = Dio();
@@ -63,7 +63,7 @@ void main() {
           Util.dateTimeWithoutMillis(token.createdAt), expected["created_at"]);
       expect(
           Util.dateTimeWithoutMillis(token.updatedAt), expected["updated_at"]);
-      expect(token.toJson() != null, true);
+      expect(token.toJson(), true);
     });
   });
 }

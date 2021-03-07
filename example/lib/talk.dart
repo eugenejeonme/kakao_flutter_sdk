@@ -27,11 +27,11 @@ class TalkScreen extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Text("Following scopes are required: ${state.scopes}"),
-                        RaisedButton(
+                        ElevatedButton(
                           onPressed: () => BlocProvider.of<FriendsBloc>(context)
                               .dispatch(RequestAgreement(state.scopes)),
-                          textColor: Colors.white,
-                          color: Colors.blue,
+                          // textColor: Colors.white,
+                          // color: Colors.blue,
                           child: Text("Request scopes"),
                         )
                       ],

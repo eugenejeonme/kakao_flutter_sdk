@@ -61,17 +61,18 @@ class ApiFactory {
   ///
   static KakaoException transformApiError(DioError e) {
     if (e.response == null) return KakaoClientException(e.message);
-    if (e.response.statusCode == 404) {
+    if (e.response?.statusCode == 404) {
       return KakaoClientException(e.message);
     }
-    if (Uri.parse(e.request.baseUrl).host == KakaoContext.hosts.kauth) {
-      return KakaoAuthException.fromJson(e.response.data);
+    // TODO: e.request is nullable
+    if (Uri.parse(e.request?.baseUrl ?? '').host == KakaoContext.hosts.kauth) {
+      return KakaoAuthException.fromJson(e.response?.data);
     }
-    if (Uri.parse(e.request.baseUrl).host == KakaoContext.hosts.dapi) {
-      return DapiException.fromJson(e.response.data);
+    if (Uri.parse(e.request?.baseUrl ?? '').host == KakaoContext.hosts.dapi) {
+      return DapiException.fromJson(e.response?.data);
     }
 
-    return KakaoApiException.fromJson(e.response.data);
+    return KakaoApiException.fromJson(e.response?.data);
   }
 
   /// DIO interceptor for App-key based API (Link, Local, Search, etc).

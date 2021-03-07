@@ -44,8 +44,8 @@ class RoadAddress extends Coord {
       this.subBuildingNo,
       this.buildingName,
       this.zoneNo,
-      double x,
-      double y)
+      double? x,
+      double? y)
       : super(x, y);
 
   /// <nodoc>

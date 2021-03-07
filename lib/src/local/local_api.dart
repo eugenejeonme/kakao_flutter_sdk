@@ -18,6 +18,7 @@ import 'package:kakao_flutter_sdk/src/search/model/search_meta.dart';
 /// see https://developers.kakao.com/docs/latest/ko/local/dev-guide
 class LocalApi {
   LocalApi(this._dio);
+
   final Dio _dio;
 
   /// singleton instance for this class
@@ -25,13 +26,13 @@ class LocalApi {
 
   /// Provides coordinates and full address information (both 도로명 and 지번) with the given address.
   Future<LocalEnvelope<SearchMeta, TotalAddress>> address(String query,
-      {int page, int size}) async {
+      {int? page, int? size}) async {
     final params = {"query": query, "page": page, "size": size};
     return _localApi("/v2/local/search/address.json", params);
   }
 
   Future<LocalEnvelope<CountMeta, Region>> coord2Region(double x, double y,
-      {CoordType inputCoord, CoordType outputCoord, String lang}) async {
+      {CoordType? inputCoord, CoordType? outputCoord, String? lang}) async {
     final params = {
       "x": x,
       "y": y,
@@ -45,7 +46,7 @@ class LocalApi {
   ///
   Future<LocalEnvelope<CountMeta, TotalAddress>> coord2Address(
       double x, double y,
-      {CoordType inputCoord}) async {
+      {CoordType? inputCoord}) async {
     final params = {
       "x": x,
       "y": y,
@@ -55,8 +56,8 @@ class LocalApi {
   }
 
   Future<LocalEnvelope<CountMeta, Coord>> transformCoord(
-      double x, double y, CoordType outputCoord,
-      {CoordType inputCoord}) async {
+      double x, double y, CoordType? outputCoord,
+      {CoordType? inputCoord}) async {
     final params = {
       "x": x,
       "y": y,
@@ -67,14 +68,14 @@ class LocalApi {
   }
 
   Future<LocalEnvelope<LocalSearchMeta, Place>> placesWithKeyword(String query,
-      {CategoryGroup categoryGroup,
-      double x,
-      double y,
-      int radius,
-      String rect,
-      int page,
-      int size,
-      Order sort}) async {
+      {CategoryGroup? categoryGroup,
+      double? x,
+      double? y,
+      int? radius,
+      String? rect,
+      int? page,
+      int? size,
+      Order? sort}) async {
     final params = {
       "query": query,
       "category_group_code":
@@ -91,14 +92,14 @@ class LocalApi {
   }
 
   Future<LocalEnvelope<LocalSearchMeta, Place>> placesWithCategory(
-      CategoryGroup categoryGroup,
-      {double x,
-      double y,
-      int radius,
-      String rect,
-      int page,
-      int size,
-      Order sort}) async {
+      CategoryGroup? categoryGroup,
+      {double? x,
+      double? y,
+      int? radius,
+      String? rect,
+      int? page,
+      int? size,
+      Order? sort}) async {
     final params = {
       "category_group_code":
           categoryGroup == null ? null : describeEnum(categoryGroup),
@@ -113,7 +114,7 @@ class LocalApi {
     return _localApi("/v2/local/search/category.json", params);
   }
 
-  Future<LocalEnvelope<T, U>> _localApi<T, U>(
+  Future<LocalEnvelope<T, U>> _localApi<T extends Object, U extends Object>(
       String path, Map<String, dynamic> params) {
     return ApiFactory.handleApiError(() async {
       params.removeWhere((k, v) => v == null);

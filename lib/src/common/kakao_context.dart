@@ -10,8 +10,8 @@ class KakaoContext {
       const MethodChannel('kakao_flutter_sdk');
 
   /// Native app key for this application from [Kakao Developers](https://developers.kakao.com).
-  static String clientId;
-  static String javascriptClientId;
+  static String? clientId;
+  static String? javascriptClientId;
 
   static String sdkVersion = "0.5.4";
 
@@ -71,7 +71,7 @@ class KakaoContext {
     return packageInfo.packageName;
   }
 
-  static String get platformClientId {
+  static String? get platformClientId {
     if (kIsWeb) {
       return KakaoContext.javascriptClientId;
     }

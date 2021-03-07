@@ -8,9 +8,9 @@ import '../helper.dart';
 import '../mock_adapter.dart';
 
 void main() {
-  MockAdapter _adapter;
-  TalkApi _api;
-  Dio _dio;
+  late MockAdapter _adapter;
+  late TalkApi _api;
+  late Dio _dio;
 
   setUp(() {
     _dio = Dio();
@@ -29,7 +29,7 @@ void main() {
     expect(profile.profileImageUrl.toString(), map["profileImageURL"]);
     expect(profile.thumbnailUrl.toString(), map["thumbnailURL"]);
     expect(map["countryISO"], profile.countryISO);
-    expect(true, profile.toJson() != null);
+    expect(true, profile.toJson());
   });
 
   bool compareFriend(Map<String, dynamic> element, Friend friend) {
@@ -54,7 +54,7 @@ void main() {
     List<Friend> friends = res.friends;
     friends.asMap().forEach(
         (idx, friend) => expect(true, compareFriend(elements[idx], friend)));
-    expect(true, res.toJson() != null);
+    expect(true, res.toJson());
   });
 
   group("/v2/api/talk/memo", () {
@@ -179,7 +179,7 @@ void main() {
   });
   group("/v1/api/talk/plusfriends", () {
     var map;
-    PlusFriendsResponse res;
+    PlusFriendsResponse? res;
     setUp(() async {
       var body = await loadJson("talk/plusfriends/plus_friends.json");
       map = jsonDecode(body);
@@ -187,10 +187,10 @@ void main() {
     });
 
     tearDown(() async {
-      expect(res.userId, map["user_id"]);
+      expect(res?.userId, map["user_id"]);
       var elements = map["plus_friends"];
-      var friends = res.plusFriends;
-      friends.asMap().forEach((index, friend) {
+      var friends = res?.plusFriends;
+      friends?.asMap().forEach((index, friend) {
         var element = elements[index];
         expect(friend.uuid, element["plus_friend_uuid"]);
         expect(friend.publicId, element["plus_friend_public_id"]);
@@ -198,7 +198,7 @@ void main() {
         expect(Util.dateTimeWithoutMillis(friend.updatedAt),
             element["updated_at"]);
       });
-      expect(true, res.toJson() != null);
+      expect(true, res?.toJson() != null);
     });
 
     test("with no parameter", () async {

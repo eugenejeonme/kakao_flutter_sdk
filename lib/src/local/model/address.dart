@@ -49,8 +49,8 @@ class Address extends Coord {
       this.mainAddressNo,
       this.subAddressNo,
       this.zipCode,
-      double x,
-      double y)
+      double? x,
+      double? y)
       : super(x, y);
 
   /// <nodoc>

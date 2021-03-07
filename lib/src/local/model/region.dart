@@ -26,8 +26,8 @@ class Region extends Coord {
       this.region3depthName,
       this.region4depthName,
       this.code,
-      double x,
-      double y)
+      double? x,
+      double? y)
       : super(x, y);
 
   /// <nodoc>

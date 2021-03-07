@@ -31,12 +31,12 @@ Map<String, dynamic> _$RegionToJson(Region instance) {
 
   writeNotNull('x', instance.x);
   writeNotNull('y', instance.y);
-  writeNotNull('region_type', instance.regionType);
-  writeNotNull('address_name', instance.addressName);
-  writeNotNull('region_1depth_name', instance.region1depthName);
-  writeNotNull('region_2depth_name', instance.region2depthName);
-  writeNotNull('region_3depth_name', instance.region3depthName);
-  writeNotNull('region_4depth_name', instance.region4depthName);
-  writeNotNull('code', instance.code);
+  val['region_type'] = instance.regionType;
+  val['address_name'] = instance.addressName;
+  val['region_1depth_name'] = instance.region1depthName;
+  val['region_2depth_name'] = instance.region2depthName;
+  val['region_3depth_name'] = instance.region3depthName;
+  val['region_4depth_name'] = instance.region4depthName;
+  val['code'] = instance.code;
   return val;
 }

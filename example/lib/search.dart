@@ -40,7 +40,7 @@ class DataSearch extends SearchDelegate<String> {
                 },
               ),
             );
-            Scaffold.of(context).showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         },
         child: BlocBuilder<SearchBloc, SearchState>(
@@ -61,7 +61,7 @@ class DataSearch extends SearchDelegate<String> {
                 children: <Widget>[
                   Text(
                     "Web pages",
-                    style: Theme.of(context).textTheme.headline,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
                   ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -78,7 +78,7 @@ class DataSearch extends SearchDelegate<String> {
                   ),
                   Text(
                     "Images",
-                    style: Theme.of(context).textTheme.headline,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
                   GridView.count(
                     crossAxisCount: 4,
@@ -95,7 +95,7 @@ class DataSearch extends SearchDelegate<String> {
                   ),
                   Text(
                     "Blogs",
-                    style: Theme.of(context).textTheme.headline,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
                   ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -112,7 +112,7 @@ class DataSearch extends SearchDelegate<String> {
                   ),
                   Text(
                     "Books",
-                    style: Theme.of(context).textTheme.headline,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
                   ListView.builder(
                     physics: NeverScrollableScrollPhysics(),

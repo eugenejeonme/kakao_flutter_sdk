@@ -35,16 +35,16 @@ Map<String, dynamic> _$AddressToJson(Address instance) {
 
   writeNotNull('x', instance.x);
   writeNotNull('y', instance.y);
-  writeNotNull('address_name', instance.addressName);
-  writeNotNull('region_1depth_name', instance.region1depthName);
-  writeNotNull('region_2depth_name', instance.region2depthName);
-  writeNotNull('region_3depth_name', instance.region3depthName);
-  writeNotNull('region_3depth_h_name', instance.region3depthHName);
-  writeNotNull('h_code', instance.hCode);
-  writeNotNull('b_code', instance.bCode);
-  writeNotNull('mountain_yn', instance.mountainYn);
-  writeNotNull('main_address_no', instance.mainAddressNo);
-  writeNotNull('sub_address_no', instance.subAddressNo);
-  writeNotNull('zip_code', instance.zipCode);
+  val['address_name'] = instance.addressName;
+  val['region_1depth_name'] = instance.region1depthName;
+  val['region_2depth_name'] = instance.region2depthName;
+  val['region_3depth_name'] = instance.region3depthName;
+  val['region_3depth_h_name'] = instance.region3depthHName;
+  val['h_code'] = instance.hCode;
+  val['b_code'] = instance.bCode;
+  val['mountain_yn'] = instance.mountainYn;
+  val['main_address_no'] = instance.mainAddressNo;
+  val['sub_address_no'] = instance.subAddressNo;
+  val['zip_code'] = instance.zipCode;
   return val;
 }

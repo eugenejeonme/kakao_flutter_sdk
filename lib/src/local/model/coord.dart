@@ -5,9 +5,9 @@ part 'coord.g.dart';
 @JsonSerializable(includeIfNull: false)
 class Coord {
   @JsonKey(fromJson: stringToDouble)
-  double x;
+  double? x;
   @JsonKey(fromJson: stringToDouble)
-  double y;
+  double? y;
 
   Coord(this.x, this.y);
 
@@ -22,13 +22,13 @@ class Coord {
 }
 
 /// <nodoc>
-double stringToDouble(dynamic v) {
+double? stringToDouble(dynamic v) {
   if (v == null) return null;
   if (v is double) return v;
   return double.tryParse(v);
 }
 
-int stringToInt(dynamic v) {
+int? stringToInt(dynamic v) {
   if (v == null) return null;
   if (v is int) return v;
   return int.tryParse(v);

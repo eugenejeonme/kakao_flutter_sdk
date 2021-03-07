@@ -6,18 +6,20 @@ part of 'search_envelope.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SearchEnvelope<T> _$SearchEnvelopeFromJson<T>(Map<String, dynamic> json) {
+SearchEnvelope<T> _$SearchEnvelopeFromJson<T extends Object>(
+    Map<String, dynamic> json) {
   return SearchEnvelope<T>(
-    json['meta'] == null
-        ? null
-        : SearchMeta.fromJson(json['meta'] as Map<String, dynamic>),
-    (json['documents'] as List)?.map(GenericsConverter<T>().fromJson)?.toList(),
+    SearchMeta.fromJson(json['meta'] as Map<String, dynamic>),
+    (json['documents'] as List<dynamic>)
+        .map((e) => GenericsConverter<T>().fromJson(e as Object))
+        .toList(),
   );
 }
 
-Map<String, dynamic> _$SearchEnvelopeToJson<T>(SearchEnvelope<T> instance) =>
+Map<String, dynamic> _$SearchEnvelopeToJson<T extends Object>(
+        SearchEnvelope<T> instance) =>
     <String, dynamic>{
       'meta': instance.meta,
       'documents':
-          instance.documents?.map(GenericsConverter<T>().toJson)?.toList(),
+          instance.documents.map(GenericsConverter<T>().toJson).toList(),
     };

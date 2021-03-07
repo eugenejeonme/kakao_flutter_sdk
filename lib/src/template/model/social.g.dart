@@ -16,19 +16,10 @@ Social _$SocialFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$SocialToJson(Social instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('like_count', instance.likeCount);
-  writeNotNull('comment_count', instance.commentCount);
-  writeNotNull('shared_count', instance.sharedCount);
-  writeNotNull('view_count', instance.viewCount);
-  writeNotNull('subscriber_count', instance.subscriberCount);
-  return val;
-}
+Map<String, dynamic> _$SocialToJson(Social instance) => <String, dynamic>{
+      'like_count': instance.likeCount,
+      'comment_count': instance.commentCount,
+      'shared_count': instance.sharedCount,
+      'view_count': instance.viewCount,
+      'subscriber_count': instance.subscriberCount,
+    };
