@@ -37,7 +37,40 @@ class Book extends ThumbnailResult {
   String status;
 
   /// <nodoc>
-  factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
+  //factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
+  factory Book.fromJson(Map<String, dynamic> json) {
+    try {
+      return Book(
+        json['title'] as String,
+        json['contents'] as String,
+        Uri.parse(json['url'] as String),
+        DateTime.parse(json['datetime'] as String),
+        Uri.parse(json['thumbnail'] as String),
+        json['isbn'] as String,
+        (json['authors'] as List<dynamic>).map((e) => e as String).toList(),
+        json['publisher'] as String,
+        (json['translators'] as List<dynamic>).map((e) => e as String).toList(),
+        json['price'] as int,
+        json['sale_price'] as int,
+        json['status'] as String,
+      );
+    } on FormatException catch (_) {
+      return Book(
+        json['title'] as String,
+        json['contents'] as String,
+        Uri.parse(json['url'] as String),
+        DateTime.parse('1970-01-01'),
+        Uri.parse(json['thumbnail'] as String),
+        json['isbn'] as String,
+        (json['authors'] as List<dynamic>).map((e) => e as String).toList(),
+        json['publisher'] as String,
+        (json['translators'] as List<dynamic>).map((e) => e as String).toList(),
+        json['price'] as int,
+        json['sale_price'] as int,
+        json['status'] as String,
+      );
+    }
+  }
 
   /// <nodoc>
   Map<String, dynamic> toJson() => _$BookToJson(this);
